@@ -1,10 +1,12 @@
 import React from "react";
-import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route } from "react-router-dom";
 import ShoppingHome from "./ShoppingHome";
 import ShoppingDashboard from "./ShoppingDashboard";
 import Login from "./Login";
 import Register from "./Register";
 import LoginError from "./LoginError";
+
+import CartItems from "./CartItems";
 
 const ShoppingIndex = () => {
   return (
@@ -28,6 +30,7 @@ const ShoppingIndex = () => {
             <div className="mb-2">
             <Link className="btn btn-danger text-white w-100" to="/dashboard">Dashboard </Link>
             </div>
+           
           </nav>
           <main className="col-9 mt-2">
             <Routes>
@@ -37,6 +40,7 @@ const ShoppingIndex = () => {
               <Route path="/loginerror" element={<LoginError />} />
               <Route path="/register" element={<Register />} />
               <Route path="/dashboard" element={<ShoppingDashboard />} />
+              <Route path="/cart" element={<CartItems />} />
               <Route path="*" element={<h1>404</h1>} />
             </Routes>
           </main>

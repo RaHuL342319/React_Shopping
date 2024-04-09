@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { addCartItem } from "../store/feature/cartSlice";
+import { useDispatch } from "react-redux";
 
 const Products = ({ category }) => {
   const [products, setProducts] = useState([]);
-
+  const dispatch = useDispatch()
   useEffect(() => {
    if(category === "All Categories"){
     axios.get(`http://localhost:3000/getproducts/`).then((response) => {
@@ -16,11 +18,19 @@ const Products = ({ category }) => {
    }
   }, [category]);
 
+  const  handleCart = (id) =>{
+    console.log(id);
+    fetch(`http://localhost:3000/product/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+       dispatch(addCartItem(data[0]));
+      });
+  }
+
   return (
     <div className="border border-danger">
       <h1>Products</h1>
       <p>This is the Products page</p>
-      {console.log(products)}
 
       <div className="row">
         <div className="d-flex gap-2 flex-wrap mt-3 col border">
@@ -42,7 +52,7 @@ const Products = ({ category }) => {
                 <button
                   className="btn btn-primary"
                   id={product.id}
-                //   onClick={cartHandler}
+                onClick={() => handleCart(product.id)}
                 >
                   Add to Cart
                 </button>
